@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import Error from './Error'
 
-const Formulario = () => {
+const Formulario = ({pacientesAgregados, setPacientes}) => {
 
     // Almacena en los states lo que se vaya agregando a los campos del formulario
     const [nombre, setNombre] = useState('');
@@ -23,6 +24,22 @@ const Formulario = () => {
         } 
 
         setError(false);
+
+        // Si los campos estan llenos entonces puedo construir el objeto para llevarlo al array de objetos
+        const nuevoPaciente = {
+            nombre, propietario, email, fecha, sintomas
+        }
+
+        console.log(nuevoPaciente)
+        setPacientes([...pacientesAgregados, nuevoPaciente])
+
+        // reiniciar form
+       /* setNombre('')
+        setPropietario('')
+        setEmail('')
+        setFecha('')
+        setSintomas('') */
+        
     }
 
 
@@ -45,11 +62,7 @@ const Formulario = () => {
 
                 {/* SI HAY UN ERROR */}
                 {/* usando props seria <Error mensaje="Todos los campos son obligatorios"/> */}
-                {error && (
-                    <div className="bg-red-700 text-white text-center p-3 uppercase font-bold mb-3 rounded">
-                        <p>Falta algún dato</p>
-                    </div> 
-                )}
+                {error && <Error mensaje="Todos los campos son obligatorios" /> }
 
                 <div className="mb-5">
                     <label className="block text-gray-700 uppercase font-bold" htmlFor="nombre">Mascota</label>
