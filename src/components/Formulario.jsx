@@ -21,24 +21,26 @@ const Formulario = ({pacientesAgregados, setPacientes}) => {
         if ([nombre, propietario, email, fecha, sintomas].includes('')) {
             setError(true);
             return;
-        } 
+        } else {
+            setError(false);
 
-        setError(false);
+            // Si los campos estan llenos entonces puedo construir el objeto para llevarlo al array de objetos
+            const nuevoPaciente = {
+                nombre, propietario, email, fecha, sintomas
+            }
 
-        // Si los campos estan llenos entonces puedo construir el objeto para llevarlo al array de objetos
-        const nuevoPaciente = {
-            nombre, propietario, email, fecha, sintomas
-        }
-
-        console.log(nuevoPaciente)
-        setPacientes([...pacientesAgregados, nuevoPaciente])
+            console.log(nuevoPaciente)
+            setPacientes([...pacientesAgregados, nuevoPaciente])
 
         // reiniciar form
-       /* setNombre('')
-        setPropietario('')
-        setEmail('')
-        setFecha('')
-        setSintomas('') */
+            /* setNombre('')
+             setPropietario('')
+             setEmail('')
+             setFecha('')
+             setSintomas('') */
+        }
+
+
         
     }
 
@@ -62,7 +64,7 @@ const Formulario = ({pacientesAgregados, setPacientes}) => {
 
                 {/* SI HAY UN ERROR */}
                 {/* usando props seria <Error mensaje="Todos los campos son obligatorios"/> */}
-                {error && <Error mensaje="Todos los campos son obligatorios" /> }
+                {error && <Error><p>Todos los campos son obligatorios</p></Error> }
 
                 <div className="mb-5">
                     <label className="block text-gray-700 uppercase font-bold" htmlFor="nombre">Mascota</label>

@@ -13,11 +13,11 @@ function App() {
           <Header />
           <div className="mt-12 md:flex">
               <Formulario
-                  pacientesAgregados={pacientesAgregados}
-                 setPacientes={setPacientes}
+                pacientesAgregados={pacientesAgregados}
+                setPacientes={setPacientes}
               />
               <ListadoPacientes
-
+                pacientesAgregados={pacientesAgregados} /* se envia todo el array al listado */ 
               />
           </div>
 
