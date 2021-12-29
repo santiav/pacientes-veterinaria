@@ -1,6 +1,6 @@
 import Paciente from "./Paciente"
 
-const ListadoPacientes = ({ pacientesAgregados, setPacienteSeleccionado}) => {
+const ListadoPacientes = ({ pacientesAgregados, setPacienteSeleccionado, eliminarPaciente}) => {
 
     return (
         <div className="md:w-1/2 lg:w-3/5 md:h-screen overflow-scroll">
@@ -22,6 +22,7 @@ const ListadoPacientes = ({ pacientesAgregados, setPacienteSeleccionado}) => {
                                 key={item.id}
                                 paciente={item}
                                 setPacienteSeleccionado={setPacienteSeleccionado}
+                                eliminarPaciente={eliminarPaciente}
                             />
                         )
                     })}

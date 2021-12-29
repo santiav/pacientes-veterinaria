@@ -11,7 +11,11 @@ function App() {
     // Paciente seleccionado al editar 
     const [ pacienteSeleccionado, setPacienteSeleccionado] = useState({});
 
-    
+    const eliminarPaciente = id => {
+        console.log("eliminando paciente", id)
+        const pacientesActualizados = pacientesAgregados.filter( item => item.id !== id)
+        setPacientesAgregados(pacientesActualizados)
+    }
 
     return (
         <div className="container mx-auto text-center mt-20">  
@@ -26,6 +30,7 @@ function App() {
                     <ListadoPacientes
                         pacientesAgregados={pacientesAgregados} /* se envia todo el array al listado */ 
                         setPacienteSeleccionado={setPacienteSeleccionado}
+                        eliminarPaciente={eliminarPaciente}
                     />
             </div>
 
