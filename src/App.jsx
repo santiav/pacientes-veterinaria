@@ -8,6 +8,9 @@ function App() {
     // Desde el formulario va a ir llenando el array de objetos
     const [ pacientesAgregados, setPacientes] = useState([]);
 
+    // Paciente seleccionado al editar 
+    const [ pacienteSeleccionado, setPaciente] = useState({});
+
   return (
     <div className="container mx-auto text-center mt-20">  
           <Header />
@@ -15,9 +18,11 @@ function App() {
               <Formulario
                 pacientesAgregados={pacientesAgregados}
                 setPacientes={setPacientes}
+                  pacienteSeleccionado={pacienteSeleccionado}
               />
               <ListadoPacientes
                 pacientesAgregados={pacientesAgregados} /* se envia todo el array al listado */ 
+                setPaciente={setPaciente}
               />
           </div>
 

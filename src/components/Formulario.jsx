@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Error from './Error'
 
-const Formulario = ({pacientesAgregados, setPacientes}) => {
+const Formulario = ({ pacientesAgregados, setPacientes, pacienteSeleccionado}) => {
 
     // Almacena en los states lo que se vaya agregando a los campos del formulario
     const [nombre, setNombre] = useState('');
@@ -12,6 +12,26 @@ const Formulario = ({pacientesAgregados, setPacientes}) => {
 
     // Si hay un error con los datos
     const [error, setError] = useState(false);
+
+    // Cuando haga click en "editar", el pacienteSeleccionado seteará el state de cada campo del formulario
+    // Es decir, como cada campo esta viendo que tiene almacenado el state, se actualiza automaticamente
+    useEffect(() => {
+        if (Object.keys(pacienteSeleccionado).length > 0) {
+            setNombre(pacienteSeleccionado.nombre)
+            setPropietario(pacienteSeleccionado.propietario)
+            setEmail(pacienteSeleccionado.email)
+            setFecha(pacienteSeleccionado.fecha)
+            setSintomas(pacienteSeleccionado.sintomas)
+        }
+    }, [pacienteSeleccionado])
+
+
+    // Generación de ID (key)
+    const uuidv4 = () => { /*https://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid/2117523#2117523*/
+        return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+            (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+        );
+    }
 
     // Al hacer click en "agregar paciente"
     const handleSubmit = (e) => {
@@ -40,11 +60,7 @@ const Formulario = ({pacientesAgregados, setPacientes}) => {
              setSintomas('') */
         }
 
-        function uuidv4() { /*https://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid/2117523#2117523*/
-            return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
-                (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-            );
-        }
+      
         
     }
 
