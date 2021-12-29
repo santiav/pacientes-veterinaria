@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Error from './Error'
 
-const Formulario = ({ pacientesAgregados, setPacientes, pacienteSeleccionado}) => {
+const Formulario = ({ pacientesAgregados, setPacientesAgregados, pacienteSeleccionado, setPacienteSeleccionado}) => {
 
     // Almacena en los states lo que se vaya agregando a los campos del formulario
     const [nombre, setNombre] = useState('');
@@ -46,11 +46,26 @@ const Formulario = ({ pacientesAgregados, setPacientes, pacienteSeleccionado}) =
 
             // Si los campos estan llenos entonces puedo construir el objeto para llevarlo al array de objetos
             const nuevoPaciente = {
-                nombre, propietario, email, fecha, sintomas, id: uuidv4()
+                nombre, propietario, email, fecha, sintomas
             }
 
-            console.log(nuevoPaciente)
-            setPacientes([...pacientesAgregados, nuevoPaciente])
+            if (pacienteSeleccionado.id) {
+                // console.log('editando')
+                nuevoPaciente.id = pacienteSeleccionado.id
+
+                const pacientesActualizados = pacientesAgregados.map( item =>  item.id === pacienteSeleccionado.id ? nuevoPaciente : item )
+                setPacientesAgregados(pacientesActualizados)
+                setPacienteSeleccionado({})
+
+            } else {
+                // console.log('nuevo registro')
+                console.log(nuevoPaciente)
+                nuevoPaciente.id = uuidv4()
+                setPacientesAgregados([...pacientesAgregados, nuevoPaciente])
+            }
+
+
+            
 
         // reiniciar form
             /* setNombre('')
@@ -152,7 +167,7 @@ const Formulario = ({ pacientesAgregados, setPacientes, pacienteSeleccionado}) =
                 <input
                     type="submit"
                     className="bg-indigo-600 w-full p-3 text-white cursor-pointer hover:bg-indigo-700 transition-all"
-                    
+                    value={ pacienteSeleccionado.id ? 'Editar paciente' : 'Agregar paciente' }
                 />
 
             </form>
